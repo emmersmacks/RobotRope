@@ -56,21 +56,29 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Character\AnimationController.cs" />
-    <Compile Include="Assets\Scripts\Character\HookController.cs" />
-    <Compile Include="Assets\Scripts\FastenersScript.cs" />
-    <Compile Include="Assets\Scripts\Character\MovementScript.cs" />
-    <Compile Include="Assets\Scripts\Character\InputController.cs" />
-    <Compile Include="Assets\Scripts\Camera\CameraController.cs" />
-    <Compile Include="Assets\Scripts\LevelGenerator.cs" />
-    <Compile Include="Assets\Scripts\PrefabSpawner.cs" />
-    <Compile Include="Assets\Scripts\GeneratorFactory.cs" />
-    <Compile Include="Assets\Scripts\IGenerator.cs" />
-    <Compile Include="Assets\Scripts\FastenersGenerator.cs" />
-    <Compile Include="Assets\Scripts\PrefabInform.cs" />
-    <Compile Include="Assets\Scripts\GenerationSettingsCurve.cs" />
-    <Compile Include="Assets\Scripts\GenerationSettings.cs" />
-    <Compile Include="Assets\Scripts\LevelController.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\DataUIController.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Generation\LevelGenerator.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Generation\GenerationSettingsCurve.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Generation\IGenerator.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Character\AnimationController.cs" />
+    <Compile Include="Assets\Scripts\DI\PlayerDataInstaller.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\GenerateController.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Character\HookController.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Camera\CameraController.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Generation\PrefabSpawner.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Items\MoneyScript.cs" />
+    <Compile Include="Assets\Scripts\DataScripts\LoadData.cs" />
+    <Compile Include="Assets\Scripts\DataScripts\SaveData.cs" />
+    <Compile Include="Assets\Scripts\DataScripts\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Fasteners\FastenersScript.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Generation\PrefabInform.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Generation\GeneratorFactory.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Character\MovementController.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Generation\GenerationSettings.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Generation\FastenersGenerator.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\Character\InputController.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\DeadLine\DeadLineScript.cs" />
+    <Compile Include="Assets\Scripts\GameScripts\DeadLine\ClearLineScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -295,8 +303,23 @@
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
+    <Reference Include="Zenject-usage">
+      <HintPath>Assets\Plugins\Zenject\Source\Usage\Zenject-usage.dll</HintPath>
+    </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Pdb">
+      <HintPath>Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Rocks">
+      <HintPath>Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil.Mdb">
+      <HintPath>Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Zenject.ReflectionBaking.Mono.Cecil">
+      <HintPath>Assets\Plugins\Zenject\OptionalExtras\ReflectionBaking\Lib\Zenject.ReflectionBaking.Mono.Cecil.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
@@ -735,6 +758,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Zenject-Editor.csproj">
+      <Project>{AF3DC366-F495-5F1B-9BE0-9EBBBB435897}</Project>
+      <Name>Zenject-Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Zenject-PoolMonitor-Editor.csproj">
+      <Project>{1BCE5A85-92A1-18F9-9BD3-6CC1A7DE653F}</Project>
+      <Name>Zenject-PoolMonitor-Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Zenject-ReflectionBaking-Editor.csproj">
+      <Project>{A5F9EFFA-7624-8631-431B-B51B06BB87F4}</Project>
+      <Name>Zenject-ReflectionBaking-Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Zenject.csproj">
+      <Project>{9895C55E-F031-AD57-B6A3-E3D7E4CD6722}</Project>
+      <Name>Zenject</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

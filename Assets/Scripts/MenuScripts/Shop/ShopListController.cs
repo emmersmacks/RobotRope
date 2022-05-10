@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Ropebot.Data.Bots;
 
 namespace Ropebot.Menu.UI.Shop.Controllers
@@ -22,13 +21,11 @@ namespace Ropebot.Menu.UI.Shop.Controllers
             for (int i = 0; i < botsList.Count; i++)
             {
                 var panel = Instantiate(ItemPanel, transform);
-                panel.GetComponent<SlotInfo>().botType = botsList[i];
-                var previewImage = panel.transform.GetChild(1).GetComponent<Image>();
-                var priceText = panel.transform.GetChild(2).GetChild(0).GetComponent<Text>();
-                var nameText = panel.transform.GetChild(3).GetComponent<Text>();
-                previewImage.sprite = botsList[i].GetBotSprite();
-                priceText.text = botsList[i].Price.ToString();
-                nameText.text = botsList[i].Name.ToString();
+                var slotInfo = panel.GetComponent<SlotInfo>();
+                slotInfo.botType = botsList[i];
+                slotInfo.botPreview.sprite = botsList[i].GetBotSprite();
+                slotInfo.priceField.text = botsList[i].Price.ToString();
+                slotInfo.botNameField.text = botsList[i].Name.ToString();
             }
         }
 

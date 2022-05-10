@@ -28,16 +28,14 @@ namespace Ropebot.Game.Level.Generation.Factory
         {
             for (int i = 0; i < fastenerNumber; i++)
             {
-                var maxValueY = positions[i].y + GenerationSettings.fastenerCoordRange;
-                var minValueY = positions[i].y - GenerationSettings.fastenerCoordRange;
-                int randomValueY = (int)Random.Range(minValueY, maxValueY);
-                var ValueX = positions[i].x + GenerationSettings.fastenerCoordRange - randomValueY * 0.2f;
-
-                while (randomValueY < GenerationSettings.availableGenerationCoordMin && randomValueY > GenerationSettings.availableGenerationCoordMax)
-                {
-                    randomValueY = (int)Random.Range(minValueY, maxValueY);
-                }
-
+                var maxValueY = positions[i].y + GenerationSettings.availableGenerationCoordMax;
+                var minValueY = positions[i].y - GenerationSettings.availableGenerationCoordMin;
+                if (maxValueY > 20f)
+                    maxValueY = 20f;
+                else if(minValueY < -20)
+                    minValueY = -20;
+                float randomValueY = Random.Range(minValueY, maxValueY);
+                var ValueX = positions[i].x + GenerationSettings.fastenerCoordXRange - (randomValueY - positions[0].y) * 0.2f;
                 var newPosition = new Vector2(ValueX, randomValueY);
                 positions.Add(newPosition);
             }

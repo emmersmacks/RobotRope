@@ -19,6 +19,8 @@ namespace Ropebot.Data
             }
             else
             {
+                SetDefoltValuesData();
+
                 data = new PlayerDataStruct();
                 data = LoadData.Load(ref data, _path);
             }

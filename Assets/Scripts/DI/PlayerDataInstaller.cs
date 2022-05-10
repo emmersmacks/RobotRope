@@ -1,6 +1,5 @@
 using UnityEngine;
 using Zenject;
-using Ropebot.Data.player;
 
 namespace Ropebot.Data.player.installer
 {

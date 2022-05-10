@@ -1126,7 +1126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555427fc5094d1345a8ffa6432f89b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _UIController: {fileID: 2006398980}
 --- !u!61 &697547202
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1260,6 +1259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 904218581}
   - component: {fileID: 904218580}
+  - component: {fileID: 904218582}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -1280,7 +1280,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 904218582}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1312,6 +1313,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &904218582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904218579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16aaf3624937ec44fbc042274734ea5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 2006398980}
 --- !u!1 &917828045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,10 +1536,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d48988c4bc0ae0b46af1ea63536c3b73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _UIController: {fileID: 2006398980}
   _choiceBorder: {fileID: 1185741189}
   _buyButton: {fileID: 697547197}
-  _previewSlotImage: {fileID: 294107516}
+  _previewImage: {fileID: 0}
 --- !u!4 &1229172139
 Transform:
   m_ObjectHideFlags: 0
@@ -1971,7 +1984,7 @@ GameObject:
   - component: {fileID: 2006398976}
   - component: {fileID: 2006398980}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2079,6 +2092,9 @@ MonoBehaviour:
   _recordWay: {fileID: 0}
   _botImageInCapsule: {fileID: 0}
   _preview: {fileID: 1371716226}
+  _choiceBorder: {fileID: 1185741189}
+  _buyButton: {fileID: 697547197}
+  _shopPreviewImage: {fileID: 294107516}
 --- !u!1 &2040654047
 GameObject:
   m_ObjectHideFlags: 0

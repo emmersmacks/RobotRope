@@ -1,11 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ClearLineScript : MonoBehaviour
+namespace Ropebot.Game.Level.Controllers
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class ClearLineScript : MonoBehaviour
     {
-        Destroy(collision.gameObject);
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            Destroy(collision.gameObject);
+        }
     }
 }
+

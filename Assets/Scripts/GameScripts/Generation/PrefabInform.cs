@@ -1,8 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using Ropebot.Game.Level.Generation;
 using UnityEngine;
 
-public class PrefabInform : MonoBehaviour
+namespace Ropebot.Game
 {
-    public PrefabType chunkType;
+    public class PrefabInform : MonoBehaviour
+    {
+        public PrefabType prefabType;
+    }
+
+    public enum PrefabType
+    {
+        Fastener,
+        Money,
+    }
 }
+
+

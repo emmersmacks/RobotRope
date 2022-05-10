@@ -1,46 +1,49 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FastenersGenerator : IGenerator
+namespace Ropebot.Game.Level.Generation.Factory
 {
-    public List<Vector2Int> Generate(List<Vector2Int> afforablePosition = null)
+    public class FastenersGenerator : IGenerator
     {
-        var positions = new List<Vector2Int>();
-
-        if (afforablePosition == null)
+        public List<Vector2> Generate(List<Vector2> afforablePosition = null)
         {
-            positions.Add(new Vector2Int(0, 0));
-            positions = GeneratePositions(positions, GenerationSettings.firstGenerationFastenersCount);
-            return positions;
-        }
-        else
-        {
-            positions.Add(afforablePosition[afforablePosition.Count - 1]);
-            positions = GeneratePositions(positions, GenerationSettings.uploadFastenersCount);
-            positions.Remove(positions[0]);
-            return positions;
-        }
-    }
+            var positions = new List<Vector2>();
 
-    private List<Vector2Int> GeneratePositions(List<Vector2Int> positions, int fastenerNumber)
-    {
-        for (int i = 0; i < fastenerNumber; i++)
-        {
-            var maxValueY = positions[i].y + GenerationSettings.fastenerCoordRange;
-            var minValueY = positions[i].y - GenerationSettings.fastenerCoordRange;
-            var minValueX = positions[i].x + GenerationSettings.fastenerCoordRange;
-            int randomValueY = Random.Range(minValueY, maxValueY);
-
-            while (randomValueY < GenerationSettings.availableGenerationCoordMin && randomValueY > GenerationSettings.availableGenerationCoordMax)
+            if (afforablePosition == null)
             {
-                randomValueY = Random.Range(minValueY, maxValueY);
+                positions.Add(new Vector2(0, 0));
+                positions = GeneratePositions(positions, GenerationSettings.firstGenerationFastenersCount);
+                return positions;
+            }
+            else
+            {
+                positions.Add(afforablePosition[afforablePosition.Count - 1]);
+                positions = GeneratePositions(positions, GenerationSettings.uploadFastenersCount);
+                positions.Remove(positions[0]);
+                return positions;
+            }
+        }
+
+        private List<Vector2> GeneratePositions(List<Vector2> positions, int fastenerNumber)
+        {
+            for (int i = 0; i < fastenerNumber; i++)
+            {
+                var maxValueY = positions[i].y + GenerationSettings.fastenerCoordRange;
+                var minValueY = positions[i].y - GenerationSettings.fastenerCoordRange;
+                int randomValueY = (int)Random.Range(minValueY, maxValueY);
+                var ValueX = positions[i].x + GenerationSettings.fastenerCoordRange - randomValueY * 0.2f;
+
+                while (randomValueY < GenerationSettings.availableGenerationCoordMin && randomValueY > GenerationSettings.availableGenerationCoordMax)
+                {
+                    randomValueY = (int)Random.Range(minValueY, maxValueY);
+                }
+
+                var newPosition = new Vector2(ValueX, randomValueY);
+                positions.Add(newPosition);
             }
 
-            var newPosition = new Vector2Int(minValueX, randomValueY);
-            positions.Add(newPosition);
+            return positions;
         }
-        
-        return positions;
     }
 }
+

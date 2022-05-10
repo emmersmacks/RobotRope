@@ -1,38 +1,42 @@
 using UnityEngine;
 
-public class AnimationController : MonoBehaviour
+namespace Ropebot.Game.Player.Controllers
 {
-    private Animator _animator;
-    private InputController _controller;
-
-    public AnimationState CurrentAnimation
+    public class AnimationController : MonoBehaviour
     {
-        get { return (AnimationState)_animator.GetInteger("State"); }
-        set { _animator.SetInteger("State", (int)value); }
-    }
+        private Animator _animator;
+        private InputController _controller;
 
-    private void Start()
-    {
-        _animator = GetComponent<Animator>();
-        _controller = GetComponent<InputController>();
-    }
-
-    private void Update()
-    {
-        if(_controller.currentState == CharacterState.isGrab)
+        public AnimationState CurrentAnimation
         {
-            CurrentAnimation = AnimationState.grab;
+            get { return (AnimationState)_animator.GetInteger("State"); }
+            set { _animator.SetInteger("State", (int)value); }
         }
-        else if(_controller.currentState == CharacterState.isFree)
-        {
-            CurrentAnimation = AnimationState.idle;
-        }
-    }
 
-    public enum AnimationState
-    {
-        idle,
-        jump,
-        grab,
+        private void Start()
+        {
+            _animator = GetComponent<Animator>();
+            _controller = GetComponent<InputController>();
+        }
+
+        private void Update()
+        {
+            if (_controller.currentState == CharacterState.isGrab)
+            {
+                CurrentAnimation = AnimationState.grab;
+            }
+            else if (_controller.currentState == CharacterState.isFree)
+            {
+                CurrentAnimation = AnimationState.idle;
+            }
+        }
+
+        public enum AnimationState
+        {
+            idle,
+            jump,
+            grab,
+        }
     }
 }
+

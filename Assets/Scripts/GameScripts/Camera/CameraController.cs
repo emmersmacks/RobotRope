@@ -1,31 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
+using Ropebot.Game.Player.Controllers;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+namespace Ropebot.Game.Controllers
 {
-    [SerializeField] private MovementController _characterController;
-    [SerializeField] private Transform _player;
-
-    private bool _isFreeze;
-    private Camera _camera;
-
-    private void Start()
+    public class CameraController : MonoBehaviour
     {
-        _camera = GetComponent<Camera>();
-        _characterController = _player.GetComponent<MovementController>();
-        _characterController.Dead += OnDead;
-        _isFreeze = false;
-    }
+        [SerializeField] private ActionController _characterController;
+        [SerializeField] private Transform _player;
 
-    private void Update()
-    {
-        if(!_isFreeze)
-            transform.position = (Vector2)_player.position;
-    }
+        private bool _isFreeze;
 
-    public void OnDead()
-    {
-        _isFreeze = true;
+        private void Start()
+        {
+            _characterController = _player.GetComponent<ActionController>();
+            _characterController.Dead += OnDead;
+            _isFreeze = false;
+        }
+
+        private void Update()
+        {
+            if (!_isFreeze)
+                transform.position = (Vector2)_player.position;
+        }
+
+        public void OnDead()
+        {
+            _isFreeze = true;
+        }
     }
 }
+

@@ -1,45 +1,53 @@
 using System.Collections.Generic;
 using UnityEngine;
-using game.data.controller.binary;
+using Ropebot.Data.Controllers.Binary;
 using System.IO;
+using Ropebot.Data.Bots;
 
-public class PlayerData : MonoBehaviour
+namespace Ropebot.Data
 {
-    public PlayerDataStruct data;
-    private string _path = "/Saves/PlayerData.bs";
-
-    private void Start()
+    public class PlayerData : MonoBehaviour
     {
-        if (!File.Exists(Application.dataPath + _path))
+        public PlayerDataStruct data;
+        private string _path = "/Saves/PlayerData.bs";
+
+        private void Start()
         {
-            SetDefoltValuesData();
-            Debug.Log("FirstStart");
+            if (!File.Exists(Application.dataPath + _path))
+            {
+                SetDefoltValuesData();
+            }
+            else
+            {
+                data = new PlayerDataStruct();
+                data = LoadData.Load(ref data, _path);
+            }
         }
-        else
+
+        private void OnApplicationQuit()
         {
-            SetDefoltValuesData();
+            SaveData.Save(data, _path);
+        }
+
+        public void SetDefoltValuesData()
+        {
             data = new PlayerDataStruct();
-            data = LoadData.Load(ref data, _path);
+            data.money = 500;
+            data.score = 0;
+            data.currentBot = new SantiagoBot();
+            data.botsInventory = new List<BotData>();
+            data.botsInventory.Add(new SantiagoBot());
+            SaveData.Save(data, _path);
         }
     }
 
-    private void OnApplicationQuit()
+    [System.Serializable]
+    public class PlayerDataStruct
     {
-        SaveData.Save(data, _path);
-    }
-
-    public void SetDefoltValuesData()
-    {
-        data = new PlayerDataStruct();
-        data.money = 500;
-        data.score = 0;
-        SaveData.Save(data, _path);
+        public int money;
+        public int score;
+        public BotData currentBot;
+        public List<BotData> botsInventory;
     }
 }
 
-[System.Serializable]
-public class PlayerDataStruct
-{
-    public int money;
-    public int score;
-}

@@ -1,47 +1,39 @@
-using System.Collections;
+using Ropebot.Game.Level.Generation.Factory;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGenerator
+namespace Ropebot.Game.Level.Generation
 {
-    private PrefabSpawner _spawner;
-
-    public LevelGenerator(PrefabSpawner spawner)
+    public class LevelGenerator
     {
-        _spawner = spawner;
-    }
+        private PrefabSpawner _spawner;
 
-    public List<Vector2Int> FirstGenerate()
-    {
-        var fastenerPositions = GeneratorFactory.ProduceGenerate(PrefabType.Fastener).Generate(null);
-        var prefabDict = new Dictionary<Vector2Int,PrefabType>();
-        AddPrefabPairToDictonary(fastenerPositions, PrefabType.Fastener, prefabDict);
-        _spawner.PrefabSpawn(prefabDict);
-        return fastenerPositions;
-    }
-
-    public List<Vector2Int> UploadPrefabs(List<Vector2Int> afforablePositions)
-    {
-        var fastenerPositions = GeneratorFactory.ProduceGenerate(PrefabType.Fastener).Generate(afforablePositions);
-        var prefabDict = new Dictionary<Vector2Int, PrefabType>();
-        AddPrefabPairToDictonary(fastenerPositions, PrefabType.Fastener, prefabDict);
-        _spawner.PrefabSpawn(prefabDict);
-        return fastenerPositions;
-    }
-
-    private Dictionary<Vector2Int, PrefabType> AddPrefabPairToDictonary(List<Vector2Int> list, PrefabType type, Dictionary<Vector2Int, PrefabType> dictonary)
-    {
-        foreach (var prefab in list)
+        public LevelGenerator(PrefabSpawner spawner)
         {
-            dictonary.Add(prefab, type);
+            _spawner = spawner;
         }
 
-        return dictonary;
+        public List<Vector2> Generate(List<Vector2> afforablePositions)
+        {
+            var fastenerPositions = GeneratorFactory.ProduceGenerate(PrefabType.Fastener).Generate(afforablePositions);
+
+            var moneyPositions = GeneratorFactory.ProduceGenerate(PrefabType.Money).Generate(fastenerPositions);
+            var prefabDict = new Dictionary<Vector2, PrefabType>();
+            prefabDict = AddPrefabPairToDictonary(fastenerPositions, PrefabType.Fastener, prefabDict);
+            prefabDict = AddPrefabPairToDictonary(moneyPositions, PrefabType.Money, prefabDict);
+            _spawner.PrefabSpawn(prefabDict);
+            return fastenerPositions;
+        }
+
+        private Dictionary<Vector2, PrefabType> AddPrefabPairToDictonary(List<Vector2> list, PrefabType type, Dictionary<Vector2, PrefabType> dictonary)
+        {
+            foreach (var prefab in list)
+            {
+                dictonary.Add(prefab, type);
+            }
+
+            return dictonary;
+        }
     }
 }
 
-public enum PrefabType
-{
-    Fastener,
-    Money,
-}

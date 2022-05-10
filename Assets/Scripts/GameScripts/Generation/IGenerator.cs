@@ -1,11 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-public interface IGenerator
+namespace Ropebot.Game.Level.Generation.Factory
 {
-    public List<Vector2Int> Generate(List<Vector2Int> afforablePosition);
+    public interface IGenerator
+    {
+        public List<Vector2> Generate(List<Vector2> afforablePosition);
+    }
 }
+
 
 

@@ -1,8 +1,8 @@
 using UnityEngine;
 using Zenject;
-using game.data.player;
+using Ropebot.Data.player;
 
-namespace game.data.player.installer
+namespace Ropebot.Data.player.installer
 {
     public class PlayerDataInstaller : MonoInstaller
     {

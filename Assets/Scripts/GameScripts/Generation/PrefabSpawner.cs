@@ -1,37 +1,40 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefabSpawner : MonoBehaviour
+namespace Ropebot.Game.Level.Generation
 {
-    [SerializeField] private GameObject[] _chunks;
-
-    public List<GameObject> PrefabSpawn(Dictionary<Vector2Int, PrefabType> chunks)
+    public class PrefabSpawner : MonoBehaviour
     {
-        List<GameObject> spawnedPrefabs = new List<GameObject>();
+        [SerializeField] private GameObject[] _chunks;
 
-        foreach(var chunk in chunks)
+        public List<GameObject> PrefabSpawn(Dictionary<Vector2, PrefabType> chunks)
         {
-            var prefab = GetPrefabByType(chunk.Value);
-            if (prefab != null)
+            List<GameObject> spawnedPrefabs = new List<GameObject>();
+
+            foreach (var chunk in chunks)
             {
-                var spawnedPrefab = Instantiate(prefab, (Vector3Int)chunk.Key, Quaternion.identity);
-                spawnedPrefabs.Add(spawnedPrefab);
+                var prefab = GetPrefabByType(chunk.Value);
+                if (prefab != null)
+                {
+                    var spawnedPrefab = Instantiate(prefab, (Vector3)chunk.Key, Quaternion.identity);
+                    spawnedPrefabs.Add(spawnedPrefab);
+                }
             }
+
+            return spawnedPrefabs;
         }
 
-        return spawnedPrefabs;
-    }
-
-    private GameObject GetPrefabByType(PrefabType type)
-    {
-        foreach(var chunk in _chunks)
+        private GameObject GetPrefabByType(PrefabType type)
         {
-            var chunkInform = chunk.GetComponent<PrefabInform>().chunkType;
-            if (chunkInform == type)
-                return chunk;
-        }
+            foreach (var chunk in _chunks)
+            {
+                var chunkInform = chunk.GetComponent<PrefabInform>().prefabType;
+                if (chunkInform == type)
+                    return chunk;
+            }
 
-        return null;
+            return null;
+        }
     }
 }
+

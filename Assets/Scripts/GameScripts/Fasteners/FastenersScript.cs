@@ -1,24 +1,29 @@
+using Ropebot.Game.Player.Controllers;
 using UnityEngine;
 
-public class FastenersScript : MonoBehaviour
+namespace Ropebot.Game.Fasteners
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class FastenersScript : MonoBehaviour
     {
-        if (collision.GetComponent<Rigidbody2D>() != null)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            var characterScript = collision.GetComponent<InputController>();
-            characterScript.currentFastener = transform;
-            characterScript.canGrab = true;
+            if (collision.GetComponent<MovementController>())
+            {
+                var characterScript = collision.GetComponent<InputController>();
+                characterScript.currentFastener = transform;
+                characterScript.canGrab = true;
+            }
         }
-    }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.GetComponent<Rigidbody2D>() != null)
+        private void OnTriggerExit2D(Collider2D collision)
         {
-            var characterScript = collision.GetComponent<InputController>();
-            characterScript.canGrab = false;
-            
+            if (collision.GetComponent<MovementController>())
+            {
+                var characterScript = collision.GetComponent<InputController>();
+                characterScript.canGrab = false;
+
+            }
         }
     }
 }
+

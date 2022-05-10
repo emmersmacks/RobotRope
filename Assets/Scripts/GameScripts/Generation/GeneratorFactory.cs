@@ -2,15 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GeneratorFactory : MonoBehaviour
+namespace Ropebot.Game.Level.Generation.Factory
 {
-    public static IGenerator ProduceGenerate(PrefabType type)
+    public class GeneratorFactory : MonoBehaviour
     {
-        switch (type)
+        public static IGenerator ProduceGenerate(PrefabType type)
         {
-            case PrefabType.Fastener: return new FastenersGenerator();
-            default: return null;
+            switch (type)
+            {
+                case PrefabType.Fastener: return new FastenersGenerator();
+                case PrefabType.Money: return new MoneyGenerator();
+                default: return null;
+            }
         }
-    }
 
+    }
 }
+

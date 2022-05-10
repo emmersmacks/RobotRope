@@ -1,29 +1,32 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenerateController : MonoBehaviour
+namespace Ropebot.Game.Level.Generation
 {
-    [SerializeField] Transform player;
-    [SerializeField] PrefabSpawner spawner;
-
-    private List<Vector2Int> _generatePositions;
-    private LevelGenerator _generator;
-
-    private void Start()
+    public class GenerateController : MonoBehaviour
     {
-        _generator = new LevelGenerator(spawner);
-        _generatePositions = _generator.FirstGenerate();
-    }
+        [SerializeField] Transform player;
+        [SerializeField] PrefabSpawner spawner;
 
-    private void Update()
-    {
-        if (_generatePositions != null && _generatePositions.Count > 0)
+        private List<Vector2> _generatePositions;
+        private LevelGenerator _generator;
+
+        private void Start()
         {
-            if (Vector2.Distance(player.position, _generatePositions[_generatePositions.Count - 1]) < 50)
+            _generator = new LevelGenerator(spawner);
+            _generatePositions = _generator.Generate(null);
+        }
+
+        private void Update()
+        {
+            if (_generatePositions != null && _generatePositions.Count > 0)
             {
-                _generatePositions = _generator.UploadPrefabs(_generatePositions);
+                if (Vector2.Distance(player.position, _generatePositions[_generatePositions.Count - 1]) < 50)
+                {
+                    _generatePositions = _generator.Generate(_generatePositions);
+                }
             }
         }
     }
 }
+
